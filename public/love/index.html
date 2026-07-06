@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1a0b2e" />
+  <title>Une petite question pour toi ❤️</title>
+  <meta name="description" content="Une histoire romantique interactive rien que pour toi." />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,700&family=Inter:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet" />
+</head>
+<body data-ambiance="galaxy">
+  <div class="bg-gradient" aria-hidden="true"></div>
+  <div class="bg-blobs" aria-hidden="true">
+    <span class="blob blob-1"></span><span class="blob blob-2"></span>
+    <span class="blob blob-3"></span><span class="blob blob-4"></span>
+  </div>
+  <canvas id="particles" class="particles" aria-hidden="true"></canvas>
+  <div id="ambiance-layer" class="ambiance-layer" aria-hidden="true"></div>
+
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+
+  <div id="loader" class="loader" role="status" aria-label="Chargement">
+    <div class="loader-logo">
+      <svg viewBox="0 0 100 100" width="80" height="80" aria-hidden="true">
+        <defs>
+          <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ff6ba9"/>
+            <stop offset=".5" stop-color="#f6c667"/>
+            <stop offset="1" stop-color="#4cc9f0"/>
+          </linearGradient>
+        </defs>
+        <path d="M50 86s-32-18-32-42a18 18 0 0 1 32-11 18 18 0 0 1 32 11c0 24-32 42-32 42z"
+              fill="none" stroke="url(#lg)" stroke-width="3" stroke-linecap="round"
+              stroke-dasharray="220" stroke-dashoffset="220">
+          <animate attributeName="stroke-dashoffset" from="220" to="0" dur="1.6s" fill="freeze"/>
+        </path>
+      </svg>
+    </div>
+    <div class="loader-bar"><span></span></div>
+    <p class="loader-text" id="loader-text">Préparation d'un petit moment rien que pour toi…</p>
+  </div>
+
+  <header class="toolbar" role="toolbar" aria-label="Contrôles">
+    <button id="ambiance-btn" class="tool-btn" aria-label="Changer d'ambiance" title="Ambiance">🌌</button>
+    <button id="theme-toggle" class="tool-btn" aria-label="Thème clair/sombre" title="Thème">🌙</button>
+    <button id="motion-toggle" class="tool-btn" aria-label="Réduire les animations" title="Animations" aria-pressed="false">🌀</button>
+    <button id="sound-toggle" class="tool-btn" aria-label="Musique" title="Musique" aria-pressed="false">🔇</button>
+    <input id="volume" class="volume" type="range" min="0" max="1" step="0.01" value="0.35" aria-label="Volume" />
+    <button id="restart" class="tool-btn" aria-label="Recommencer" title="Recommencer">↺</button>
+  </header>
+
+  <!-- Mur de cartes glassmorphism en arrière-plan (parallaxe + questions rapides) -->
+  <div id="cards-wall" class="cards-wall" aria-label="Questions bonus" aria-hidden="false"></div>
+
+  <!-- Modale de question -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card card" role="document">
+      <button class="modal-close" data-close aria-label="Fermer">✕</button>
+      <span class="eyebrow" id="modal-cat">Bonus</span>
+      <h3 class="title" id="modal-q" style="font-size:clamp(1.1rem,3vw,1.6rem)"></h3>
+      <div class="chip-group" id="modal-options" role="radiogroup"></div>
+      <p class="subtitle" id="modal-feedback" style="min-height:1.4em;margin-top:.75rem"></p>
+    </div>
+  </div>
+
+  <div id="badges-bar" class="badges-bar" aria-label="Badges débloqués"></div>
+
+  <main id="stage" class="stage" aria-live="polite"></main>
+
+  <div id="fx-layer" class="fx-layer" aria-hidden="true"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- Lecteur YouTube invisible : Willylancien - Elle m'a eu -->
+  <div id="yt-player" aria-hidden="true" style="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;pointer-events:none"></div>
+  <audio id="music" loop preload="none" crossorigin="anonymous">
+    <!-- Repli hors-ligne / si YouTube indisponible -->
+    <source src="./audio/elle-ma-eu.mp3" type="audio/mpeg" />
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=romantic-piano-ambient-113881.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
